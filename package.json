@@ -4,11 +4,12 @@
   "description": "Sample application demonstrating PIPEDA & SOC 2 compliance anti-patterns and auditing with pipedact",
   "main": "src/server.ts",
   "scripts": {
-    "lint:pipeda": "pipedact check . --framework pipeda --strict",
-    "lint:soc2": "pipedact check . --framework soc2 --strict",
-    "lint:all": "pipedact check . --framework all",
-    "dossier:pipeda": "pipedact dossier --framework pipeda --format markdown --out PIPEDA_DOSSIER.md",
-    "dossier:soc2": "pipedact dossier --framework soc2 --format markdown --out SOC2_DOSSIER.md"
+    "test": "node scripts/verify-fixtures.js",
+    "lint:pipeda": "pipedact check fixtures/secure --framework pipeda --strict",
+    "lint:soc2": "pipedact check fixtures/secure --framework soc2 --strict",
+    "lint:all": "pipedact check fixtures/secure --framework all",
+    "dossier:pipeda": "pipedact dossier fixtures/secure --framework pipeda --format markdown --out PIPEDA_DOSSIER.md",
+    "dossier:soc2": "pipedact dossier fixtures/secure --framework soc2 --format markdown --out SOC2_DOSSIER.md"
   },
   "dependencies": {
     "express": "^4.19.2",

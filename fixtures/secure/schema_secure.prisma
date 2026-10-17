@@ -1,0 +1,19 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// SECURE: Account model includes autoPurge / expiresAt TTL retention hook
+model UserAccount {
+  id              String    @id @default(uuid())
+  email           String    @unique
+  canadianSIN     String    @privacy(purpose: "tax_reporting", retention: "7y")
+  creditCardToken String    @privacy(purpose: "billing_fulfillment", retention: "7y")
+  medicalNotes    String?   @privacy(purpose: "health_record_statutory", retention: "10y")
+  createdAt       DateTime  @default(now())
+  expiresAt       DateTime? @privacy(autoPurge: true)
+}

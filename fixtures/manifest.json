@@ -1,0 +1,386 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "description": "Pipedact Acceptance & Regression Testing Fixtures Manifest",
+  "fixtures": [
+    {
+      "id": "vuln-auth",
+      "category": "vulnerable",
+      "file": "fixtures/vulnerable/auth_vulnerable.ts",
+      "language": "typescript",
+      "description": "Multi-violation authentication endpoint containing hardcoded secrets, raw SIN logging, unconsented ad conversion tracking, unauthorized health identifier over-collection, MD5 password hashing, and insecure session cookies.",
+      "supported": true,
+      "expectedViolationCount": 9,
+      "expectedExitCode": 1,
+      "expectedViolations": [
+        {
+          "ruleId": "SOC2-CC6-HARDCODED-SECRET",
+          "line": 4,
+          "severity": "CRITICAL",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "PIPEDA-4-OVER-COLLECTION",
+          "line": 19,
+          "severity": "HIGH",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "PIPEDA-7-RAW-SIN",
+          "line": 25,
+          "severity": "CRITICAL",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "PIPEDA-7-SAFEGUARD-LOG",
+          "line": 26,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "PIPEDA-3-OPTIN-MISSING",
+          "line": 30,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "PIPEDA-3-OPTIN-MISSING",
+          "line": 32,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "SOC2-CC6-WEAK-CRYPTO",
+          "line": 37,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "PIPEDA-4-OVER-COLLECTION",
+          "line": 44,
+          "severity": "HIGH",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "SOC2-CC6-INSECURE-COOKIE",
+          "line": 49,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        }
+      ]
+    },
+    {
+      "id": "vuln-server",
+      "category": "vulnerable",
+      "file": "fixtures/vulnerable/server_vulnerable.ts",
+      "language": "typescript",
+      "description": "Express server configured with wildcard CORS origin reflecting any origin with credentials, and omitting a mandatory public /privacy policy route.",
+      "supported": true,
+      "expectedViolationCount": 2,
+      "expectedExitCode": 0,
+      "expectedViolations": [
+        {
+          "ruleId": "PIPEDA-8-POLICY-ROUTE-MISSING",
+          "line": 1,
+          "severity": "LOW",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "SOC2-CC6-WILDCARD-CORS",
+          "line": 8,
+          "severity": "MEDIUM",
+          "confidence": "HIGH"
+        }
+      ],
+      "notes": "Exit code is 0 under default severity threshold HIGH; exit code is 1 under --strict mode."
+    },
+    {
+      "id": "vuln-dsr",
+      "category": "vulnerable",
+      "file": "fixtures/vulnerable/dsr_vulnerable.ts",
+      "language": "typescript",
+      "description": "Data subject access request export routine that omits required financial transaction history and access log tables.",
+      "supported": true,
+      "expectedViolationCount": 1,
+      "expectedExitCode": 0,
+      "expectedViolations": [
+        {
+          "ruleId": "PIPEDA-9-INCOMPLETE-DSR",
+          "line": 9,
+          "severity": "MEDIUM",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "notes": "Exit code is 0 under default severity threshold HIGH; exit code is 1 under --strict mode."
+    },
+    {
+      "id": "vuln-telemetry",
+      "category": "vulnerable",
+      "file": "fixtures/vulnerable/telemetry_vulnerable.py",
+      "language": "python",
+      "description": "Python telemetry worker dispatching personal identifiers to unvetted subprocessor (unverified-metrics.com), leaking raw SINs, and writing unredacted PII to server logging sinks.",
+      "supported": true,
+      "expectedViolationCount": 3,
+      "expectedExitCode": 1,
+      "expectedViolations": [
+        {
+          "ruleId": "PIPEDA-7-SAFEGUARD-LOG",
+          "line": 9,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "PIPEDA-1-UNVETTED-SUBPROCESSOR",
+          "line": 13,
+          "severity": "MEDIUM",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "PIPEDA-7-RAW-SIN",
+          "line": 14,
+          "severity": "CRITICAL",
+          "confidence": "HIGH"
+        }
+      ]
+    },
+    {
+      "id": "vuln-schema",
+      "category": "vulnerable",
+      "file": "fixtures/vulnerable/schema_vulnerable.prisma",
+      "language": "prisma",
+      "description": "Prisma ORM schema defining UserAccount without declared retention lifespan / autoPurge schedule, and sensitive columns (canadianSIN, creditCardToken, medicalNotes) without purpose annotations.",
+      "supported": true,
+      "expectedViolationCount": 4,
+      "expectedExitCode": 0,
+      "expectedViolations": [
+        {
+          "ruleId": "PIPEDA-5-RETENTION-DISPOSAL",
+          "line": 12,
+          "severity": "MEDIUM",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "PIPEDA-2-PURPOSE-UNTAGGED",
+          "line": 15,
+          "severity": "MEDIUM",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "PIPEDA-2-PURPOSE-UNTAGGED",
+          "line": 16,
+          "severity": "MEDIUM",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "PIPEDA-2-PURPOSE-UNTAGGED",
+          "line": 17,
+          "severity": "MEDIUM",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "notes": "Exit code is 0 under default severity threshold HIGH; exit code is 1 under --strict mode."
+    },
+    {
+      "id": "vuln-unauthorized-export",
+      "category": "vulnerable",
+      "file": "fixtures/vulnerable/unauthorized_export.ts",
+      "language": "typescript",
+      "description": "Sensitive subject data export endpoint omitting authentication and subject authorization (IDOR / BOLA vulnerability).",
+      "supported": false,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": [],
+      "notes": "Documented negative test case / scanner limitation: Pipedact static regex/heuristic rules do not perform AST-based RBAC or route middleware boundary verification."
+    },
+    {
+      "id": "sec-auth",
+      "category": "secure",
+      "file": "fixtures/secure/auth_secure.ts",
+      "language": "typescript",
+      "description": "Remediated authentication handler using environment variables, masked logging, validated Luhn SIN check, verified consent guard, bcrypt hashing, and secure cookies.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    },
+    {
+      "id": "sec-server",
+      "category": "secure",
+      "file": "fixtures/secure/server_secure.ts",
+      "language": "typescript",
+      "description": "Secure Express application with explicit allowed CORS origins and an accessible /privacy policy endpoint.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    },
+    {
+      "id": "sec-dsr",
+      "category": "secure",
+      "file": "fixtures/secure/dsr_secure.ts",
+      "language": "typescript",
+      "description": "Comprehensive individual access export routine including user profile, transaction records, and access audit logs.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    },
+    {
+      "id": "sec-authorized-export",
+      "category": "secure",
+      "file": "fixtures/secure/authorized_export.ts",
+      "language": "typescript",
+      "description": "Export endpoint guarded by requireAuth middleware and subject-ownership authorization checks.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    },
+    {
+      "id": "sec-telemetry",
+      "category": "secure",
+      "file": "fixtures/secure/telemetry_secure.py",
+      "language": "python",
+      "description": "Secure Python telemetry worker routing through domestic Canadian endpoint, sha256 pseudonymizing subject identifiers, and masking logs.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    },
+    {
+      "id": "sec-schema",
+      "category": "secure",
+      "file": "fixtures/secure/schema_secure.prisma",
+      "language": "prisma",
+      "description": "Prisma ORM schema with autoPurge expiration hook and lawful purpose annotations (@privacy) on sensitive columns.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    },
+    {
+      "id": "adv-comment-guards",
+      "category": "adversarial",
+      "file": "fixtures/adversarial/comment_guards.ts",
+      "language": "typescript",
+      "description": "Adversarial tests ensuring comments mentioning consent do not suppress active tracking calls, and commented-out tracking calls do not trigger false positives.",
+      "supported": true,
+      "expectedViolationCount": 2,
+      "expectedExitCode": 1,
+      "expectedViolations": [
+        {
+          "ruleId": "PIPEDA-3-OPTIN-MISSING",
+          "line": 5,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        },
+        {
+          "ruleId": "PIPEDA-3-OPTIN-MISSING",
+          "line": 7,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        }
+      ]
+    },
+    {
+      "id": "adv-mixed-cookies",
+      "category": "adversarial",
+      "file": "fixtures/adversarial/mixed_cookies.ts",
+      "language": "typescript",
+      "description": "Adversarial test verifying per-call cookie isolation: a secure cookie on line 3 must not suppress detection of an insecure cookie on line 11.",
+      "supported": true,
+      "expectedViolationCount": 1,
+      "expectedExitCode": 1,
+      "expectedViolations": [
+        {
+          "ruleId": "SOC2-CC6-INSECURE-COOKIE",
+          "line": 11,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        }
+      ]
+    },
+    {
+      "id": "adv-multiline-cookie",
+      "category": "adversarial",
+      "file": "fixtures/adversarial/multiline_cookie.ts",
+      "language": "typescript",
+      "description": "Adversarial test verifying multiline cookie statement parsing: detects insecure multiline cookie on line 5 without flagging compliant multiline cookie on line 16.",
+      "supported": true,
+      "expectedViolationCount": 1,
+      "expectedExitCode": 1,
+      "expectedViolations": [
+        {
+          "ruleId": "SOC2-CC6-INSECURE-COOKIE",
+          "line": 5,
+          "severity": "HIGH",
+          "confidence": "HIGH"
+        }
+      ]
+    },
+    {
+      "id": "adv-env-fallback-secret",
+      "category": "adversarial",
+      "file": "fixtures/adversarial/env_fallback_secret.ts",
+      "language": "typescript",
+      "description": "Adversarial test detecting hardcoded live secret embedded as environment variable fallback, verifying zero sensitive token leakage in report output.",
+      "supported": true,
+      "expectedViolationCount": 1,
+      "expectedExitCode": 1,
+      "expectedViolations": [
+        {
+          "ruleId": "SOC2-CC6-HARDCODED-SECRET",
+          "line": 4,
+          "severity": "CRITICAL",
+          "confidence": "HIGH"
+        }
+      ]
+    },
+    {
+      "id": "adv-sanitized-logging",
+      "category": "adversarial",
+      "file": "fixtures/adversarial/sanitized_logging.ts",
+      "language": "typescript",
+      "description": "Adversarial test ensuring logging calls using maskIdentifier() or sha256 hashes, as well as commented-out log calls, produce zero false-positive violations.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    },
+    {
+      "id": "adv-policy-exception",
+      "category": "adversarial",
+      "file": "fixtures/adversarial/policy_exception.ts",
+      "language": "typescript",
+      "description": "Adversarial test verifying statutory exception configuration: flags over-collection by default, but suppresses when allowedPurposes includes health scope.",
+      "supported": true,
+      "expectedViolationCount": 2,
+      "expectedExitCode": 1,
+      "expectedViolations": [
+        {
+          "ruleId": "PIPEDA-4-OVER-COLLECTION",
+          "line": 5,
+          "severity": "HIGH",
+          "confidence": "MEDIUM"
+        },
+        {
+          "ruleId": "PIPEDA-4-OVER-COLLECTION",
+          "line": 10,
+          "severity": "HIGH",
+          "confidence": "MEDIUM"
+        }
+      ]
+    },
+    {
+      "id": "adv-malformed",
+      "category": "adversarial",
+      "file": "fixtures/adversarial/malformed.ts",
+      "language": "typescript",
+      "description": "Adversarial test verifying parser resilience: ensures malformed code with unclosed braces, truncated tokens, and syntax errors executes without panic or crash.",
+      "supported": true,
+      "expectedViolationCount": 0,
+      "expectedExitCode": 0,
+      "expectedViolations": []
+    }
+  ]
+}
