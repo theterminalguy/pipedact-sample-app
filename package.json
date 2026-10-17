@@ -1,0 +1,14 @@
+{
+  "name": "pipedact-sample-app",
+  "version": "1.0.0",
+  "description": "Sample application demonstrating PIPEDA statutory privacy anti-patterns and compliance auditing with pipedact",
+  "main": "src/controllers/auth.controller.ts",
+  "scripts": {
+    "lint:privacy": "pipedact check . --strict",
+    "dossier": "pipedact dossier --format markdown --out PIPEDA_DOSSIER.md"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "@prisma/client": "^5.14.0"
+  }
+}

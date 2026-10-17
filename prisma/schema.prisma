@@ -1,0 +1,19 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// VIOLATION 5 [Principle 5: Retention & Disposal]: Missing TTL expiration or autoPurge schedule
+// VIOLATION 6 [Principle 2: Identifying Purposes]: Missing statutory purpose declarations on sensitive fields
+model UserAccount {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  canadianSIN     String   // VIOLATION 6: High risk identifier without lawful purpose tag
+  creditCardToken String   // VIOLATION 7: Financial identifier without purpose or retention declaration
+  medicalNotes    String?  // VIOLATION 8: Health data collected without classification
+  createdAt       DateTime @default(now())
+}
