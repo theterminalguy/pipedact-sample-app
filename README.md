@@ -1,5 +1,10 @@
 # pipedact-sample-app 🍁🛡️
 
+[![GitHub release](https://img.shields.io/github/v/release/theterminalguy/pipedact-sample-app?color=blue)](https://github.com/theterminalguy/pipedact-sample-app/releases)
+[![pipedact audit](https://img.shields.io/badge/pipedact-compliance%20gate-red)](https://github.com/theterminalguy/pipedact)
+[![Jurisdiction: CA-PIPEDA](https://img.shields.io/badge/Jurisdiction-CA--PIPEDA%20%7C%20Law%2025-crimson.svg)](https://www.priv.gc.ca/)
+[![Framework: SOC 2 Type II](https://img.shields.io/badge/Framework-AICPA%20SOC%202%20Type%20II-teal.svg)](https://www.aicpa-cima.com/)
+
 > A reference web & data application containing common **Canadian statutory privacy anti-patterns** and **AICPA SOC 2 Type II control deficiencies** to demonstrate and test continuous compliance auditing with [`pipedact`](https://github.com/theterminalguy/pipedact).
 
 ---
@@ -66,3 +71,9 @@ npm run lint:all       # Check all frameworks
 npm run dossier:pipeda # Generate PIPEDA dossier
 npm run dossier:soc2   # Generate SOC 2 evidence pack
 ```
+
+---
+
+## 🏷️ Keywords & Index Terms
+
+`pipeda`, `soc2`, `privacy-engineering`, `vulnerable-app`, `security-testing`, `sast-demo`, `typescript`, `prisma`, `python`, `quebec-law-25`, `pii-redaction`, `sin-validation`.
